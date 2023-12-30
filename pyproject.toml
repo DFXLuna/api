@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = ""
+authors = ["Emi Grant <teamuba@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.108.0"
+uvicorn = "^0.25.0"
+
+[tool.poetry-exec-plugin.commands]
+dev = "uvicorn src.main:app --reload"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
