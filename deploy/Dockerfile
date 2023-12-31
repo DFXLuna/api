@@ -1,4 +1,12 @@
-FROM python:3.8-slim as base
+FROM node:20 as js-builder
+
+COPY  js /js
+WORKDIR /js
+
+RUN npm ci && npm run build
+
+#####################################
+FROM python:3.8-slim as py-base
 
 ENV PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random \
@@ -6,7 +14,8 @@ ENV PYTHONFAULTHANDLER=1 \
 
 WORKDIR /app
 
-FROM base as builder
+#####################################
+FROM py-base as py-builder
 
 ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
@@ -21,12 +30,14 @@ RUN poetry config virtualenvs.in-project true && \
     poetry install --only=main --no-root && \
     poetry build
 
-FROM base as final
+#####################################
+FROM py-base as final
 
-ENV UVI_API_PORT=8000
+EXPOSE 8000
 
-COPY --from=builder /app/.venv ./.venv
-COPY --from=builder /app/dist .
+COPY --from=py-builder /app/.venv ./.venv
+COPY --from=py-builder /app/dist .
+COPY --from=js-builder /js/dist/* /app/public
 
 RUN ./.venv/bin/pip install *.whl
-CMD ["uvicorn", "api.main:app", "--reload", "--port ${UVI_API_PORT}"]
+CMD ["./.venv/bin/uvicorn", "api.main:app", "--port", "8000", "--host", "0.0.0.0"]

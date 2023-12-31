@@ -1,0 +1,1 @@
+poetry run http --ignore-stdin localhost:8000/api/v1/hello
