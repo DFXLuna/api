@@ -1,6 +1,8 @@
-js
+.cache
+dist
+node_modules
 httpie
 .venv
 .gitignore
-LICENSE
 .gitkeep
+.gitignore
