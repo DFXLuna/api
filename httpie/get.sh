@@ -1,1 +1,1 @@
-http --ignore-stdin localhost:8000/
+http --ignore-stdin localhost:8000/api/v1/hello
