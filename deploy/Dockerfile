@@ -29,4 +29,4 @@ COPY --from=builder /app/.venv ./.venv
 COPY --from=builder /app/dist .
 
 RUN ./.venv/bin/pip install *.whl
-CMD ["uvicorn", "src.main:app", "--reload", "--port ${UVI_API_PORT}"]
+CMD ["uvicorn", "api.main:app", "--reload", "--port ${UVI_API_PORT}"]
