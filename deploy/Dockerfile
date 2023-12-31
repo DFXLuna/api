@@ -40,4 +40,4 @@ COPY --from=py-builder /app/dist .
 COPY --from=js-builder /js/dist/* /app/public
 
 RUN ./.venv/bin/pip install *.whl
-CMD ["./.venv/bin/uvicorn", "api.main:app", "--port", "8000", "--host", "0.0.0.0"]
+CMD ["./.venv/bin/gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8000", "api.main:app"]
