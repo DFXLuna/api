@@ -4,7 +4,10 @@ build/docker:
 run/docker:
 	docker run --rm -p 8000:8000 egrant:api
 
-dev:
+run/api-dev:
 	npm run build --prefix ./js
 	cp -a ./js/dist/. ./public
 	poetry run uvicorn api.main:app --reload
+
+run/web-dev:
+	npm run dev --prefix ./js
