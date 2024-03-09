@@ -11,3 +11,9 @@ run/api-dev:
 
 run/web-dev:
 	npm run dev --prefix ./js
+
+run/pocket:
+	./pocket/pocketbase --dev serve
+
+get/pocket:
+	curl -JLO https://github.com/pocketbase/pocketbase/releases/download/v0.20.7/pocketbase_0.20.7_linux_amd64.zip

@@ -1,31 +1,21 @@
-// import { useState } from 'react'
-import TestButton from './test-button'
+import TestButton from './pages/test-button'
+import Navbar from './components/navbar'
+import Login from './pages/login'
+import Playlist from './components/playlist'
 
-function App({ apiHost }) {
-  // const [reply, setReply] = useState('reply here')
-
+function App({ apiHost, c }) {
   return (
-    <div className='container mx-auto min-h-screen'>
-      <div className='flex min-h-screen flex-col items-center justify-center'>
-        <TestButton apiHost={apiHost} />
-        {/* <div>
-          <h1>Button Test</h1>
+    <div>
+      <Navbar />
+      <div className='container mx-auto min-h-screen'>
+        <div className='flex min-h-screen flex-col items-center justify-center'>
+          {/* <TestButton apiHost={apiHost} /> */}
+          {/* <Login c={c} /> */}
+          <Playlist />
         </div>
-        <button className='btn btn-primary rounded-xl' onClick={() => getSlash(apiHost, setReply)}>{`Get ${apiHost}`}</button>
-        <p className='reply-text'>
-          {reply}
-        </p> */}
       </div>
     </div>
   )
 }
-
-// async function getSlash(apiHost, set) {
-//   set(`fetching ${apiHost}`)
-//   await fetch(apiHost)
-//     .then(resp => resp.text())
-//     .then(body => set(body))
-//     .catch(err => console.log(err))
-// }
 
 export default App

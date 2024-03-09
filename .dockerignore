@@ -6,3 +6,5 @@ httpie
 .gitignore
 .gitkeep
 .gitignore
+.env
+todo.md
