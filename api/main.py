@@ -1,19 +1,17 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
 
 app = FastAPI()
-# origins = [
-#     "http://localhost:8001",
-#     "http://localhost:8000",
-# ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["Content-Type"],
 )
 
 
@@ -22,4 +20,15 @@ def hello():
     return {"Hello": "World"}
 
 
-app.mount("/", StaticFiles(directory="public", html=True), name="public")
+class SPAStaticFiles(StaticFiles):
+    async def get_response(self, path: str, scope):
+        try:
+            return await super().get_response(path, scope)
+        except StarletteHTTPException as ex:
+            if ex.status_code == 404:
+                return await super().get_response("index.html", scope)
+            else:
+                raise ex
+
+
+app.mount("/", SPAStaticFiles(directory="public", html=True), name="public")
