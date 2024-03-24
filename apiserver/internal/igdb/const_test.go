@@ -1,0 +1,7 @@
+package igdb_test
+
+const (
+	CLIENT_ID_KEY     = "IGDB_CLIENT_ID"
+	CLIENT_SECRET_KEY = "IGDB_CLIENT_SECRET"
+	TOKEN_URL         = "IGDB_TOKEN_URL"
+)

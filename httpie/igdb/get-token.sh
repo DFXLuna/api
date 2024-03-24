@@ -5,7 +5,7 @@ set -o allexport
 source ../.env
 set +o allexport
 
-json=$(poetry run http --ignore-stdin POST https://id.twitch.tv/oauth2/token \
+json=$(http --ignore-stdin POST https://id.twitch.tv/oauth2/token \
     client_id==${IGDB_CLIENT_ID} \
     client_secret==${IGDB_CLIENT_SECRET} \
     grant_type==client_credentials)
