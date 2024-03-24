@@ -1,4 +1,4 @@
-package internal_test
+package igdb_test
 
 import (
 	"context"
@@ -7,15 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/DFXLuna/apiserver/internal"
+	"github.com/DFXLuna/apiserver/internal/igdb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-)
-
-const (
-	CLIENT_ID_KEY     = "IGDB_CLIENT_ID"
-	CLIENT_SECRET_KEY = "IGDB_CLIENT_SECRET"
-	TOKEN_URL         = "IGDB_TOKEN_URL"
 )
 
 func TestGetToken(t *testing.T) {
@@ -34,7 +28,7 @@ func TestGetToken(t *testing.T) {
 	tokenurl, err := url.Parse(tokenurlstr)
 	require.NoError(err, "should not err parsing url")
 
-	tok := internal.NewToken(tokenurl, func(req *http.Request) {
+	tok := igdb.NewToken(tokenurl, func(req *http.Request) {
 		q := req.URL.Query()
 		q.Add("client_id", id)
 		q.Add("client_secret", secret)

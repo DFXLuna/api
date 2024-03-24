@@ -1,4 +1,4 @@
-package internal
+package igdb
 
 import (
 	"context"
@@ -27,7 +27,7 @@ const (
 )
 
 var (
-	ErrHTTP = fmt.Errorf("Error making http call to token service")
+	ErrHTTP = fmt.Errorf("error making http call to token service")
 )
 
 type AuthFunction func(req *http.Request)
