@@ -6,10 +6,10 @@ type Config struct {
 	GamesEndpoint string
 }
 
-func NewConfig(clientID string) Config {
+func NewConfig(clientID string, BaseURL string) Config {
 	return Config{
 		ClientID:      clientID,
-		BaseURL:       "https://api.igdb.com/v4/",
+		BaseURL:       BaseURL,
 		GamesEndpoint: "games/",
 	}
 }

@@ -18,8 +18,12 @@ type SearchResp struct {
 	Games []Game
 }
 
-func SearchGames(ctx context.Context, t Token, h *http.Client, c Config, name string) ([]Game, error) {
-	rdr := strings.NewReader(fmt.Sprintf("search \"%s\"; fields name,id;", name))
+func SearchGames(ctx context.Context, t Token, h *http.Client, c Config, name string, limit int) ([]Game, error) {
+	query := fmt.Sprintf("search \"%s\"; fields name,id;", name)
+	if limit > 0 {
+		query = fmt.Sprintf("%s limit %d;", query, limit)
+	}
+	rdr := strings.NewReader(query)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseURL+c.GamesEndpoint, rdr)
 	if err != nil {
 		return []Game{}, err
