@@ -1,17 +1,16 @@
 package main
 
 import (
-	"net/http"
+	"context"
+	"fmt"
 
-	"github.com/gin-gonic/gin"
+	"github.com/DFXLuna/apiserver/internal"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	errch := make(chan error)
+	go internal.Run(context.Background(), errch)
+
+	err := <-errch
+	fmt.Printf("server shutdown: %v", err)
 }

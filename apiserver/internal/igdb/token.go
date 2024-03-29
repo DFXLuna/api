@@ -102,3 +102,13 @@ func (t *Token) refreshToken(ctx context.Context) error {
 
 	return nil
 }
+
+func DefaultAuthFunction(id string, secret string) AuthFunction {
+	return func(req *http.Request) {
+		q := req.URL.Query()
+		q.Add("client_id", id)
+		q.Add("client_secret", secret)
+		req.URL.RawQuery = q.Encode()
+
+	}
+}

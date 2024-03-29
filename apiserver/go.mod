@@ -8,6 +8,7 @@ require (
 )
 
 require (
+	github.com/ardanlabs/conf/v3 v3.1.7 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bytedance/sonic v1.11.3 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect

@@ -2,7 +2,6 @@ package igdb_test
 
 import (
 	"context"
-	"net/http"
 	"net/url"
 	"os"
 	"testing"
@@ -28,12 +27,7 @@ func TestGetToken(t *testing.T) {
 	tokenurl, err := url.Parse(tokenurlstr)
 	require.NoError(err, "should not err parsing url")
 
-	tok := igdb.NewToken(tokenurl, func(req *http.Request) {
-		q := req.URL.Query()
-		q.Add("client_id", id)
-		q.Add("client_secret", secret)
-		req.URL.RawQuery = q.Encode()
-	})
+	tok := igdb.NewToken(tokenurl, igdb.DefaultAuthFunction(id, secret))
 
 	str, err := tok.GetToken(context.Background())
 	require.NoError(err, "should not error getting token")

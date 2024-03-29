@@ -35,9 +35,10 @@ func TestSearchGames(t *testing.T) {
 		req.URL.RawQuery = q.Encode()
 	})
 
-	c := igdb.NewConfig(id)
+	c := igdb.NewConfig(id, "https://api.igdb.com/v4/")
 
-	games, err := igdb.SearchGames(context.Background(), tok, http.DefaultClient, c, "Halo")
+	games, err := igdb.SearchGames(context.Background(), tok, http.DefaultClient, c, "Halo", 5)
 	require.NoError(err, "should not error searching games")
 	assert.NotEmpty(games, "games should not be empty")
+	assert.LessOrEqual(len(games), 5)
 }
